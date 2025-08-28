@@ -21,8 +21,8 @@ resource "aws_s3_bucket_versioning" "event_bucket_versioning" {
 resource "aws_lambda_function" "processor" {
   function_name = "file_processor_lambda"
   role          = var.lambda_role_arn
-  handler       = "index.handler"  # Change as needed
-  runtime       = "python3.9"
+  handler       = "index.handler"  # adjust based on your code
+  runtime       = "python3.9"      # or your runtime
 
   filename         = var.lambda_code_path
   source_code_hash = filebase64sha256(var.lambda_code_path)

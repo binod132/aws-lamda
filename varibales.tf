@@ -11,7 +11,7 @@ variable "lambda_role_arn" {
 variable "lambda_code_path" {
   description = "Local path to Lambda deployment ZIP file"
   type        = string
-  default     = "my_lambda.zip"   # You can override in terraform.tfvars or CLI
+  default     = "lambda_code/my_lambda.zip"   # You can override in terraform.tfvars or CLI
 }
 
 variable "lambda_s3_bucket" {

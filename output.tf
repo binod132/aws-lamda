@@ -3,5 +3,5 @@ output "s3_bucket_name" {
 }
 
 output "lambda_function_arn" {
-  value = aws_lambda_function.lambda.arn
+  value = aws_lambda_function.processor.arn
 }

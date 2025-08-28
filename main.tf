@@ -10,7 +10,6 @@ resource "aws_s3_bucket" "event_bucket" {
   }
 }
 
-# New separate resource for versioning (instead of deprecated block)
 resource "aws_s3_bucket_versioning" "event_bucket_versioning" {
   bucket = aws_s3_bucket.event_bucket.id
 
@@ -19,19 +18,14 @@ resource "aws_s3_bucket_versioning" "event_bucket_versioning" {
   }
 }
 
-data "aws_s3_object" "lambda_zip" {
-  bucket = var.lambda_s3_bucket
-  key    = var.lambda_s3_key
-}
-
 resource "aws_lambda_function" "processor" {
   function_name = "file_processor_lambda"
   role          = var.lambda_role_arn
-  handler       = "index.handler"
+  handler       = "index.handler"  # Change as needed
   runtime       = "python3.9"
 
-  s3_bucket = var.lambda_s3_bucket
-  s3_key    = var.lambda_s3_key
+  filename         = var.lambda_code_path
+  source_code_hash = filebase64sha256(var.lambda_code_path)
 
   depends_on = [
     aws_s3_bucket.event_bucket,
